@@ -9,4 +9,4 @@ class Place(BaseModel):
     userId: str
 
     class Config:
-        orm_mode = True
+        form_attributes = True

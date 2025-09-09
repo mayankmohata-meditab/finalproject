@@ -1,0 +1,25 @@
+2025-09-09 15:09:38,162:INFO:routers.getget:GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 15:12:58,610:INFO:routers.getget:GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 15:18:47,329:INFO:routers.getget:GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 15:30:06,149 - INFO - get_sorted_data - routers.getget::::Get sorted Data CALLED
+2025-09-09 16:52:57,071 - INFO - all_items - routers.getget::::GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 16:53:16,531 - INFO - get_items_list - routers.getget::::GET ITEMS LIST CALLED
+2025-09-09 16:54:29,452 - INFO - get_items_list - routers.getget::::GET ITEMS LIST CALLED
+2025-09-09 17:16:20,160 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 17:16:39,750 - INFO - all_items - routers.getget::::GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 17:16:55,363 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 17:17:08,207 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 17:19:37,480 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 17:19:45,352 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 17:41:58,717 - INFO - all_items - routers.getget::::GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 17:53:58,719 - INFO - all_items - routers.getget::::GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 17:57:22,806 - INFO - all_items - routers.getget::::GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 18:00:32,556 - INFO - all_items - routers.getget::::GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 18:00:48,483 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 18:01:18,972 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 18:01:28,868 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 18:04:54,896 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 18:07:06,464 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 18:45:33,524 - INFO - all_items - routers.getget::::GET ALL ITEMS ENDPOINT CALLED
+2025-09-09 18:46:03,026 - INFO - get_item - routers.getget::::GET A ITEM CALLED
+2025-09-09 18:46:55,283 - INFO - get_sorted_data - routers.getget::::Get sorted Data CALLED

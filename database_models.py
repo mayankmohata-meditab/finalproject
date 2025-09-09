@@ -14,13 +14,3 @@ class Places(Base):
     description=Column(String)
     price=Column(Float)
     userId=Column(String)
-
-    def __init__(self, id, loc, status, description, price, userId,lat,lon):
-        self.id=id
-        self.userId=userId
-        self.loc=loc
-        self.description=description
-        self.status=status
-        self.price=price
-        self.latitude=lat
-        self.longitude=lon
