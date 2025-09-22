@@ -1,126 +1,44 @@
-from fastapi import FastAPI,Depends,Query
-from routers import getget
+from fastapi import FastAPI,Request
+from routers import get_db_api,json_api,post_db_api,post_db_api
+import time
+import time
+from logger_setup.all_logger import logger 
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
+import traceback
 
 
-app=FastAPI()
 
-app.include_router(getget.router)
-
-
-'''
-@app.get("/allitems")
-def all_items(db:Session=Depends(get_db), response_model=list[Place]):
-   
-   db_products=db.query(Places).all()
-   return db_products
+app = FastAPI()
+  
 
 
-@app.get("/getsorteddata", response_model=list[Place])
-def get_sorted_data(
-    db: Session = Depends(get_db),
-    reverse: bool = Query(False, description="Sort descending if True"),
-    criteria: str = Query("price", description="Sort criteria (only 'price' supported now)"),
-):
-    query = db.query(Places)
-    if criteria == "price":
-        if reverse:
-            query = query.order_by(Places.price.desc())
-        else:
-            query = query.order_by(Places.price.asc())
-    return query.all()
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    start_time = time.time()
+    logger.info(f"Incoming request: {request.method} {request.url.path}")
+
+    try:
+        response = await call_next(request)
+    except Exception as exp:
+        print("error occured sorry")
+        log_str = traceback.format_exc()
+        logger.critical(f"{exp}, {log_str}", exc_info=True)
+        return JSONResponse(status_code=500, content={"error": "server side error"})
+    else:
+        process_time = time.time() - start_time
+        logger.info(
+            f"Completed {request.method} {request.url.path} "
+            f"Status {response.status_code} in {process_time:.4f}s"
+        )
+        return response
+
+    
 
 
-@app.get("/getitem", response_model=Place | None)
-def get_item(
-    db: Session = Depends(get_db),
-    id: str | None = None,
-    location: str | None = None,
-):
-    if id:
-        return db.query(Places).filter(Places.id == id).first()
-    if location:
-        return db.query(Places).filter(Places.loc == location).first()
-    return None
-
-@app.get("/getitemslist", response_model=list[Place])
-def get_items_list(
-    db: Session = Depends(get_db),
-    status: str | None = None,
-    userid: str | None = None,
-):
-    query = db.query(Places)
-    if status:
-        query = query.filter(Places.status == status)
-    if userid:
-        query = query.filter(Places.userId == userid)
-    return query.all()
+app.include_router(get_db_api.router)
+app.include_router(json_api.json_router_)
+app.include_router(post_db_api.router_put_db)
+app.include_router(post_db_api.router_put_db)
 
 
-def haversine(lat1, lon1, lat2, lon2):
-    R = 6371  # Earth radius in km
-    dlat = math.radians(lat2 - lat1)
-    dlon = math.radians(lon2 - lon1)
-    a = (
-        math.sin(dlat / 2) ** 2
-        + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2))
-        * math.sin(dlon / 2) ** 2
-    )
-    c = 2 * math.asin(math.sqrt(a))
-    return R * c
-
-
-@app.get("/get_items_in_radius", response_model=list[Place])
-def get_items_in_radius(
-    db: Session = Depends(get_db),
-    radius: float = Query(..., description="Radius in kilometers"),
-    latitude: float = Query(..., description="Center latitude"),
-    longitude: float = Query(..., description="Center longitude"),
-):
-    all_items = db.query(Places).all()
-    result = []
-
-    for item in all_items:
-        if item.latitude is not None and item.longitude is not None:
-            dist = haversine(latitude, longitude, item.latitude, item.longitude)
-            if dist <= radius:
-                result.append(item)
-
-    return result
-
-
-@app.get("/get_items_by_filter", response_model=list[Place])
-def get_items_by_filter(
-    db: Session = Depends(get_db),
-    filterby: list[str] = Query(..., description="Enter the criteria (price, radius, desc)"),
-    lower: float | None = None,
-    upper: float | None = None,
-    radius: float | None = None,
-    latitude: float | None = None,
-    longitude: float | None = None,
-    words: str | None = None,
-):
-    results = db.query(Places).all()
-
-    if "price" in filterby and lower is not None and upper is not None:
-        results = [item for item in results if lower <= item.price <= upper]
-
-   
-    if "radius" in filterby and radius and latitude and longitude:
-        filtered = []
-        for item in results:
-            if item.latitude and item.longitude:
-                dist = haversine(latitude, longitude, item.latitude, item.longitude)
-                if dist <= radius:
-                    filtered.append(item)
-        results = filtered
-
-   
-    if "desc" in filterby and words:
-        keywords = [w.strip().lower() for w in words.split(",")]
-        results = [
-            item for item in results
-            if item.description and any(word in item.description.lower() for word in keywords)
-        ]
-
-    return results
-*/'''
